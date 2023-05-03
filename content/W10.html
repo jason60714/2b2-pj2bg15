@@ -130,7 +130,7 @@ img.add_border {
                             <li><a href="./../blog/index.html">blog</a></li>
                         </ul>
                       </li>
-                     <li><a href='Home.html'>Home</a><li class='has-children'><a href='w9h1.html'>w9h1</a><ul class='dropdown'><li><a href='40923115.html'>40923115</a><li><a href='40923130.html'>40923130</a><li><a href='40923235.html'>40923235</a></li></ul><li><a href='W10.html'>W10</a></li>
+                     <li><a href='Home.html'>Home</a><li class='has-children'><a href='w9h1.html'>w9h1</a><ul class='dropdown'><li><a href='40923115.html'>40923115</a><li><a href='40923130.html'>40923130</a><li><a href='40923235.html'>40923235</a></li></ul><li><a href='W10.html'>W10</a><li><a href='W11.html'>W11</a></li>
                       </ul>
                 </nav>
               </div>
@@ -141,29 +141,40 @@ img.add_border {
           </div>
           
         </header>
-    <div id="tipue_search_content">40923235 << <a href='40923235.html'>Previous</a> <br /><h1>W10</h1>
+    <div id="tipue_search_content">40923235 << <a href='40923235.html'>Previous</a> <a href='W11.html'>Next</a> >> W11<br /><h1>W10</h1>
 <!-- 導入 brython 程式庫 -->
-<script src="./../cmsimde/static/brython.js"></script>
-<script src="./../cmsimde/static/brython_stdlib.js"></script>
+<p>
+<script src="/get_page/cmsimde/static/brython.js"></script>
+<script src="/get_page/cmsimde/static/brython_stdlib.js"></script>
+</p>
 <!-- 啟動 Brython -->
+<p>
 <script>
 window.onload=function(){
 brython({debug:1, pythonpath:['./../cmsimde/static/','./../downloads/py/']});
 }
 </script>
+</p>
 <p><!-- 導入 FileSaver 與 filereader --></p>
 <p>
-<script src="./../cmsimde/static/ace/FileSaver.min.js" type="text/javascript"></script>
-<script src="./../cmsimde/static/ace/filereader.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/FileSaver.min.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/filereader.js" type="text/javascript"></script>
 </p>
 <p><!-- 導入 ace --></p>
 <p>
-<script src="./../cmsimde/static/ace/ace.js" type="text/javascript"></script>
-<script src="./../cmsimde/static/ace/ext-language_tools.js" type="text/javascript"></script>
-<script src="./../cmsimde/static/ace/mode-python3.js" type="text/javascript"></script>
-<script src="./../cmsimde/static/ace/snippets/python.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/ace.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/ext-language_tools.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/mode-python3.js" type="text/javascript"></script>
+<script src="/get_page/cmsimde/static/ace/snippets/python.js" type="text/javascript"></script>
 </p>
-<p><!-- 請注意, 這裡使用 Javascript 將 localStorage["py_src"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--></p>
+<p><!-- 導入 gearUtils-0.9.js Cango 齒輪繪圖程式庫 -->
+<script src="/get_page/cmsimde/static/Cango-24v03-min.js"></script>
+<script src="/get_page/cmsimde/static/gearUtils-09.js"></script>
+<script src="/get_page/cmsimde/static/SVGpathUtils-6v03-min.js"></script>
+<script src="/get_page/cmsimde/static/sylvester.js"></script>
+<script src="/get_page/cmsimde/static/PrairieDraw.js"></script>
+</p>
+<p><!-- 請注意, 這裡使用 Javascript 將 localStorage["kw_py_src1"] 中存在近端瀏覽器的程式碼, 由使用者決定存檔名稱--></p>
 <p>
 <script type="text/javascript">
 function doSave(storage_id, filename){
@@ -173,58 +184,88 @@ function doSave(storage_id, filename){
 }
 </script>
 </p>
-<p><!-- 印出版次與關鍵字程式 --></p>
 <p>
 <script type="text/python3">
 from browser import document as doc
 import ace
 # 清除畫布
-def clear_bd(ev):
-    bd = doc["brython_div"]
+def clear_bd1(ev):
+    bd = doc["brython_div1"]
     bd.clear()
-# Brython 3.3.4 內建的 container 名稱為  'container' 且 turtle 輸出為 svg 必須使用 div 訂定 id
-Ace = ace.Editor(editor_id="kw_editor", console_id="kw_console", container_id="kw__container", storage_id="kw_py_src" )
+Ace1 = ace.Editor(editor_id="kw_editor1", console_id="kw_console1", container_id="kw__container1", storage_id="kw_py_src1" )
 # 從 gist 取出程式碼後, 放入 editor 作為 default 程式
-def run():
+def run1():
     # 利用 get 取下 src 變數值
     try:
         url = doc.query["src"]
     except:
-        url = "https://gist.githubusercontent.com/Martin3130/9992b3450a8b2ef02f3f84ece22239cd/raw/0e6d9123a546dada620a7a0dc526b196a03c7ed8/W101"
+        url = "https://gist.githubusercontent.com/Martin3130/9992b3450a8b2ef02f3f84ece22239cd/raw/11404ff36a25f647fb206e2870437d1153a131d3/W101.py"
     prog = open(url).read()
 
     # 將程式載入編輯區
-    Ace.editor.setValue(prog)
-    Ace.editor.scrollToRow(0)
-    Ace.editor.gotoLine(0)
+    Ace1.editor.setValue(prog)
+    Ace1.editor.scrollToRow(0)
+    Ace1.editor.gotoLine(0)
     # 直接執行程式
-    #ns = {'name':'main'}
+    #ns = {'__name__':'__main__'}
     #exec(prog, ns)
     # 按下 run 按鈕
-    Ace.run()
+    Ace1.run()
 
 # 執行程式, 顯示輸出結果與清除輸出結果及對應按鈕綁定
-doc['kw_run'].bind('click', Ace.run)
-doc['kw_show_console'].bind('click', Ace.show_console)
-doc['kw_clear_console'].bind('click', Ace.clear_console)
-doc['clear_bd'].bind('click', clear_bd)
+doc['kw_run1'].bind('click', Ace1.run)
+doc['kw_show_console1'].bind('click', Ace1.show_console)
+doc['kw_clear_console1'].bind('click', Ace1.clear_console)
+doc['clear_bd1'].bind('click', clear_bd1)
 # 呼叫函式執行
-run()
+run1()
 </script>
 </p>
+<p><!-- add 1 to 100 開始 -->
+<script type="text/python3">
+from browser import document as doc
+import ace
+
+# 清除畫布
+def clear_bd1(ev):
+    bd = doc["brython_div1"]
+    bd.clear()
+
+# 利用 ace 中的 Editor 建立 Ace2 物件, 其中的輸入變數分別對應到頁面中的編輯區物件
+Ace2 = ace.Editor(editor_id="kw_editor1", console_id="kw_console1", container_id="kw__container1", storage_id="kw_py_src1" )
+
+add1to100_url = "https://gist.githubusercontent.com/mdecourse/0229a8a017091476a79700b8a190f185/raw/c48e37714f055c3a0027cbfef59e442a6ef659b9/from_1_add_to_100_1.py"
+
+# 從 gist 取得程式碼
+add_src = open(add1to100_url).read()
+def add(ev):
+    Ace2.editor.setValue(add_src)
+    Ace2.editor.scrollToRow(0)
+    Ace2.editor.gotoLine(0)
+    Ace2.run()
+
+# id 為 "add1to100" 的按鈕點按時, 執行 add 方法
+doc["add1to100"].bind('click', add)
+</script>
+</p>
+<p><!-- add 1 to 100 結束--></p>
+<!-- editor1 開始 -->
 <p><!-- 用來顯示程式碼的 editor 區域 --></p>
-<div id="kw_editor" style="width: 600px; height: 300px;"></div>
+<div id="kw_editor1" style="width: 600px; height: 300px;"></div>
 <p><!-- 以下的表單與按鈕與前面的 Javascript doSave 函式以及 FileSaver.min.js 互相配合 --></p>
-<!-- 存擋表單開始 --><form><label>Filename: <input id="kw_filename" placeholder="input file name" type="text"/>.py</label> <input onclick="doSave('kw_py_src', 'kw_filename');" type="submit" value="Save"/></form><!-- 存擋表單結束 -->
+<p><!-- 存擋表單開始 --></p>
+<form><label>Filename: <input id="kw_filename" placeholder="input file name" type="text"/>.py</label> <input onclick="doSave('kw_py_src1', 'kw_filename1');" type="submit" value="Save"/></form>
+<p><!-- 存擋表單結束 --></p>
 <p></p>
-<!-- 執行與清除按鈕開始 -->
-<p><button id="kw_run">Run</button> <button id="kw_show_console">Output</button> <button id="kw_clear_console">清除輸出區</button><button id="clear_bd">清除繪圖區</button><button onclick="window.location.reload()">Reload</button></p>
-<!-- 執行與清除按鈕結束 -->
+<p><!-- 執行與清除按鈕開始 --></p>
+<p><button id="kw_run1">Run</button> <button id="kw_show_console1">Output</button> <button id="kw_clear_console1">清除輸出區</button><button id="clear_bd1">清除繪圖區</button><button onclick="window.location.reload()">Reload</button></p>
+<p><!-- 執行與清除按鈕結束 --></p>
 <p></p>
-<!-- 程式執行 ouput 區 -->
-<div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console"></textarea></div>
-<p></p>
-<!-- editor1 結束 --><hr/><!-- ########################################## --><br />40923235 << <a href='40923235.html'>Previous</a> </div>
+<p><!-- 程式執行 ouput 區 --></p>
+<div style="width: 100%; height: 100%;"><textarea autocomplete="off" id="kw_console1"></textarea></div>
+<p><!-- Brython 程式執行的結果, 都以 brython_div1 作為切入位置 --></p>
+<div id="brython_div1"></div>
+<!-- editor1 結束 --><hr/><!-- ########################################## --><br />40923235 << <a href='40923235.html'>Previous</a> <a href='W11.html'>Next</a> >> W11</div>
         
     <!-- footer -->
       <div class="container">
