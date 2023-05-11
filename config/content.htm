@@ -187,7 +187,54 @@ run()
 <h1>W11</h1>
 <p><iframe allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/hhsPWUsCYxY" title="YouTube video player" width="560"></iframe></p>
 <p>我們這組是利用老師之前給的紅綠機器人的檔案來更改，把PJ1的場景加入PJ2中，在兩個球門中加上感測器，並加上記分板程式。</p>
-<p><a href="/downloads/pj2.ttt"></a></p>
+<pre class="brush:lua;auto-links:false;toolbar:false" contenteditable="false">function sysCall_init()
+    score1 = 0
+    
+    sensor = sim.getObject('./sensor')
+    xml = [[
+        &lt;ui title="Scoreboard" closeable="false" resizable="false" style="plastique"&gt;
+        &lt;label text="Score:" style="* {background-color: #808080; color: green; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px; }" id="10"/&gt;
+        &lt;label text="0" style="* {background-color: #FFF; color: #000000; font-size: 40px; font-weight: bold; padding: 5px; border-radius: 5px;}" id="30"/&gt;
+     
+        &lt;/ui&gt;
+    ]]
+    ui = simUI.create(xml)
+    simUI.setPosition(ui, 0,0, true)
+    bubbleRob1 = sim.getObject('/bubbleRob1')
+    ball = sim.getObject('/ball')
+    bubbleRob2 = sim.getObject('/bubbleRob2')
+    initialPosition1 = sim.getObjectPosition(bubbleRob1, -1)
+    initialOrientation1 = sim.getObjectOrientation(bubbleRob1, -1)
+    initialPosition2 = sim.getObjectPosition(bubbleRob2, -1)
+    initialOrientation2 = sim.getObjectOrientation(bubbleRob2, -1)
+    initialballPosition = sim.getObjectPosition(ball, -1)
+    initialballOrientation = sim.getObjectOrientation(ball, -1)
+
+end
+
+
+function sysCall_actuation()
+    --simUI.setLabelText(ui, 30, tostring(sim.getFloatSignal("myVariable")))
+    result=sim.readProximitySensor(sensor)
+    if(score1&lt;99)then
+        if(result&gt;0)then
+            score2 = score1+1
+            simUI.setLabelText(ui, 30, tostring(score2))
+
+            sim.setObjectPosition(bubbleRob1, -1, initialPosition1)
+            sim.setObjectOrientation(bubbleRob1, -1, initialOrientation1)
+            sim.setObjectPosition(bubbleRob2, -1, initialPosition2)
+            sim.setObjectOrientation(bubbleRob2, -1, initialOrientation2)
+            sim.setObjectPosition(ball, -1, initialballPosition)
+            sim.setObjectOrientation(ball, -1, initialballOrientation)
+
+            score1=score2
+        end
+    else
+        sim.pauseSimulation()
+    end
+end</pre>
+<p><br/><br/></p>
 <p><a href="/downloads/pj2.ttt" title="場景">場景</a></p>
 <p><a href="/downloads/zmq_bubbleRob_green_arrow_key_movement.py">綠球控制</a></p>
 <p><a href="/downloads/zmq_bubbleRob_red_wzas_key_movement.py">紅球控制</a></p><h2>h2</h2>
